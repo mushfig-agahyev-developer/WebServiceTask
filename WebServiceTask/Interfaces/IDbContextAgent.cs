@@ -10,7 +10,10 @@ namespace WebServiceTask.Interfaces
 {
     public interface IDbContextAgent
     {
-        List<AddressDTO> GetAll(BaseFilter queryParameters);
-        Task<List<AddressDTO>> GetAllAsync(BaseFilter queryParameters);
+        List<PersonDTO> GetAllPersonal(BaseFilter queryParameters);
+        Task<List<PersonDTO>> GetAllPersonalAsync(BaseFilter queryParameters);
+
+        int PersonalCount(BaseFilter queryParameters);
+        Task<int> PersonalCountAsync(BaseFilter queryParameters);
     }
 }

@@ -18,25 +18,46 @@ namespace WebServiceTask.Repositories
         public DbContextAgent(AppDbContext appDataBase) => _db = appDataBase;
 
         //All Requests DbContext will supported from this repository.
-        public List<AddressDTO> GetAll(BaseFilter filter)
+        public List<PersonDTO> GetAllPersonal(BaseFilter filter)
         {
-            List<AddressDTO> adresses = _db.Addresses.AsNoTracking()
-                .Where(r => string.IsNullOrEmpty(filter.Search) || r.AddressLine.Contains(filter.Search)).OrderByDescending(r => r.Id)
+            List<PersonDTO> _personal = _db.Personal.AsNoTracking().Include(y => y.Address)
+                .Where(r => string.IsNullOrEmpty(filter.Search) ||r.FirstName.Contains(filter.Search) ||
+                r.LastName.Contains(filter.Search) || r.Address.City.Contains(filter.Search) ||
+                r.Address.AddressLine.Contains(filter.Search)).OrderByDescending(r => r.Id)
                 .Skip(filter.PageCount * (filter.Page - 1))
-                .Take(filter.PageCount).Select(y => (AddressDTO)y).ToList();
+                .Take(filter.PageCount).Select(y => (PersonDTO)y).ToList();
 
-            return adresses;
+            return _personal;
         }
 
-        public async Task<List<AddressDTO>> GetAllAsync(BaseFilter filter)
+        public async Task<List<PersonDTO>> GetAllPersonalAsync(BaseFilter filter)
         {
-            List<AddressDTO> adresses = await _db.Addresses.AsNoTracking()
-                .Where(r => string.IsNullOrEmpty(filter.Search) || r.AddressLine.Contains(filter.Search)).OrderByDescending(r => r.Id)
-              .Skip(filter.PageCount * (filter.Page - 1))
-              .Take(filter.PageCount).Select(y => (AddressDTO)y).ToListAsync();
+            List<PersonDTO> _personal = await _db.Personal.AsNoTracking().Include(y => y.Address)
+                .Where(r => string.IsNullOrEmpty(filter.Search) || r.FirstName.Contains(filter.Search) ||
+                r.LastName.Contains(filter.Search) || r.Address.City.Contains(filter.Search) ||
+                r.Address.AddressLine.Contains(filter.Search)).OrderByDescending(r => r.Id)
+                .Skip(filter.PageCount * (filter.Page - 1))
+                .Take(filter.PageCount).Select(y => (PersonDTO)y).ToListAsync();
 
-            return adresses;
+            return _personal;
         }
 
+        public int PersonalCount(BaseFilter filter)
+        {
+            int _personalCount = _db.Personal.AsNoTracking()
+                 .Where(r => string.IsNullOrEmpty(filter.Search) || r.FirstName.Contains(filter.Search) ||
+                 r.LastName.Contains(filter.Search) || r.Address.City.Contains(filter.Search) ||
+                 r.Address.AddressLine.Contains(filter.Search)).Count();
+            return _personalCount;
+        }
+
+        public async Task<int> PersonalCountAsync(BaseFilter filter)
+        {
+            int _personalCount = await _db.Personal.AsNoTracking()
+                 .Where(r => string.IsNullOrEmpty(filter.Search) || r.FirstName.Contains(filter.Search) ||
+                 r.LastName.Contains(filter.Search) || r.Address.City.Contains(filter.Search) ||
+                 r.Address.AddressLine.Contains(filter.Search)).CountAsync();
+            return _personalCount;
+        }
     }
 }
