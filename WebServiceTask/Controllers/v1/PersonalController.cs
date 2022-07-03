@@ -47,22 +47,7 @@ namespace WebServiceTask.Controllers.v1
                 totalPages = filter.GetTotalPages(addressesCount)
             };
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetadata));
-
-            //****************Test Serialize SUCCESS***********************
-            Person person = new Person()
-            {
-                Id = 1,
-                FirstName = "Ivan",
-                LastName = "Nana",
-                Address = new Address { City = "Baku", AddressLine = "prospect “Peremogy” 28/7" }
-            };
-            PersonDTO personDTO = person;
-            var data = Helpers.CustomJsonConverter.Serialize(personDTO);
-            //****************Test Serialize SUCCESS***********************
-            //****************Test Deerialize SUCCESS***********************
-
-
+            Response.Headers.Add("X-Pagination", CustomJsonConverter.Serialize(paginationMetadata));
             return Ok(addresses);
         }
     }
