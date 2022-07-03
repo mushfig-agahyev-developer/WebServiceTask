@@ -55,11 +55,12 @@ namespace WebServiceTask.Controllers.v1
                 Id = 1,
                 FirstName = "Ivan",
                 LastName = "Nana",
-                Address = new Address { City = "Baku", AddressLine = "Baku 28May" }
+                Address = new Address { City = "Baku", AddressLine = "prospect “Peremogy” 28/7" }
             };
             PersonDTO personDTO = person;
-            var data = Helpers.CustomSerialize.Serialize(personDTO);
+            var data = Helpers.CustomJsonConverter.Serialize(personDTO);
             //****************Test Serialize SUCCESS***********************
+            //****************Test Deerialize SUCCESS***********************
 
 
             return Ok(addresses);

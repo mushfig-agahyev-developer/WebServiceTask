@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WebServiceTask.Helpers
 {
-    public static class CustomSerialize
+    public static class CustomJsonConverter
     {
         public static string Serialize(object obj)
         {
@@ -51,5 +53,26 @@ namespace WebServiceTask.Helpers
             return stringBuilder.ToString();
         }
 
+        public static T Deserialize<T>(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                throw new Exception("Json can't empty");
+            try
+            {
+                T obj;
+                var json = new DataContractJsonSerializer(typeof(T));
+                using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(value)))
+                {
+                    obj = (T)json.ReadObject(stream);
+                    stream.Flush();
+                    stream.Close();
+                }
+                return obj;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Json can't convert to Object because it isn't correct format.");
+            }
+        }
     }
 }
