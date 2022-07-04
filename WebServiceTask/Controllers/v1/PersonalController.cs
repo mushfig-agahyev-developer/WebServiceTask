@@ -23,11 +23,9 @@ namespace WebServiceTask.Controllers.v1
     {
         public Message _message { get; set; }
 
-        private readonly AppDbContext _db;
         private readonly IDbContextAgent _dbagent;
         public PersonalController(AppDbContext context, IDbContextAgent agent)
         {
-            _db = context;
             _dbagent = agent;
             _message = new Message();
         }
@@ -51,7 +49,7 @@ namespace WebServiceTask.Controllers.v1
         }
 
         [HttpPost(Name = nameof(Save))]
-        public long Save(ApiVersion version, [FromBody] PersonDTO personDTO)
+        public async Task<long> Save(ApiVersion version, [FromBody] PersonDTO personDTO)
         {
             if (personDTO == null)
                 return -1;
@@ -59,7 +57,7 @@ namespace WebServiceTask.Controllers.v1
             if (!ModelState.IsValid)
                 return -1;
 
-            long _response = _dbagent.Save(personDTO);
+            long _response = await _dbagent.SaveAsync(personDTO);
             return _response;
         }
     }
