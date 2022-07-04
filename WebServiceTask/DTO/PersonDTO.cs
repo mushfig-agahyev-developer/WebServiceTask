@@ -10,10 +10,10 @@ namespace WebServiceTask.DTO
     public class PersonDTO
     {
         [Required(ErrorMessage = "firstName name is required!"),
-          StringLength(100, ErrorMessage = "The firstName name can't be more 50 characters!")]
+          StringLength(50, ErrorMessage = "The firstName name can't be more 50 characters!")]
         public string firstName { get; set; }
         [Required(ErrorMessage = "lastName name is required!"),
-        StringLength(100, ErrorMessage = "The lastName name can't be more 50 characters!")]
+        StringLength(50, ErrorMessage = "The lastName name can't be more 50 characters!")]
         public string lastName { get; set; }
         public AddressDTO address { get; set; }
 

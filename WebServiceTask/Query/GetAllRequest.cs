@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebServiceTask.FilterModels
 {
-    public class BaseFilter
+    public class GetAllRequest
     {
-        private const int maxPageCount = 4;
+        private const int maxPageCount = 10;
         public int Page { get; set; } = 1;
 
         private int _pageCount = maxPageCount;
@@ -17,6 +17,8 @@ namespace WebServiceTask.FilterModels
             set { _pageCount = (value > maxPageCount) ? maxPageCount : value; }
         }
 
-        public string Search { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string City { get; set; }
     }
 }

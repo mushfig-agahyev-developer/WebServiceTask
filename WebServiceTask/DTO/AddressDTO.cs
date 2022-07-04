@@ -14,7 +14,7 @@ namespace WebServiceTask.DTO
            StringLength(100, ErrorMessage = "City name can't be more 100 characters!")]
         public string City { get; set; }
         [Required(ErrorMessage = "AddressLine is required!"),
-           MinLength(200, ErrorMessage = "AddressLine must be minimum 200 characters!")]
+           StringLength(200, ErrorMessage = "AddressLine must be maximum 200 characters!")]
         public string AddressLine { get; set; }
 
         public static implicit operator AddressDTO(Address address)

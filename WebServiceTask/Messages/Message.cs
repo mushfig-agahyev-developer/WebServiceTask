@@ -7,7 +7,7 @@ namespace WebServiceTask.Messages
 {
     public class Message
     {
-        public Message() => _messages = new List<string>();
-        List<string> _messages { get; set; }
+        public Message() => Messages = new List<string>();
+        public List<string> Messages { get; set; }
     }
 }

@@ -4,16 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using WebServiceTask.Models;
 
 namespace WebServiceTask.Interfaces
 {
     public interface IDbContextAgent
     {
-        List<PersonDTO> GetAllPersonal(BaseFilter queryParameters);
-        Task<List<PersonDTO>> GetAllPersonalAsync(BaseFilter queryParameters);
+        List<PersonDTO> GetAllPersonal(GetAllRequest request);
+        Task<List<PersonDTO>> GetAllPersonalAsync(GetAllRequest request);
 
-        int PersonalCount(BaseFilter queryParameters);
-        Task<int> PersonalCountAsync(BaseFilter queryParameters);
+        int PersonalCount(GetAllRequest request);
+        Task<int> PersonalCountAsync(GetAllRequest request);
+
+        long Save(PersonDTO person);
+        Task<long> SaveAsync(PersonDTO person);
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebServiceTask.Messages;
 
 namespace WebServiceTask.Controllers.v1
 {
@@ -20,35 +21,47 @@ namespace WebServiceTask.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class PersonalController : ControllerBase
     {
+        public Message _message { get; set; }
 
-
-        private readonly IUrlHelper _urlHelper;
         private readonly AppDbContext _db;
         private readonly IDbContextAgent _dbagent;
-        public PersonalController(IUrlHelper urlHelper, AppDbContext context, IDbContextAgent agent)
+        public PersonalController(AppDbContext context, IDbContextAgent agent)
         {
-            _urlHelper = urlHelper;
             _db = context;
             _dbagent = agent;
+            _message = new Message();
         }
 
-        [HttpGet(Name = nameof(GetAllAddress))]
-        public async Task<IActionResult> GetAllAddress(ApiVersion apiVersion, [FromQuery] BaseFilter filter)
+        [HttpGet(Name = nameof(GetAll))]
+        public async Task<IActionResult> GetAll(ApiVersion apiVersion, [FromQuery] GetAllRequest request)
         {
+            List<PersonDTO> _personal = await _dbagent.GetAllPersonalAsync(request);
 
-            List<PersonDTO> _personal = await _dbagent.GetAllPersonalAsync(filter);
-
-            var _personalCount = await _dbagent.PersonalCountAsync(filter);
+            var _personalCount = await _dbagent.PersonalCountAsync(request);
             var paginationMetadata = new
             {
                 totaCount = _personalCount,
-                pageSize = filter.PageCount,
-                currentPage = filter.Page,
-                totalPages = filter.GetTotalPages(_personalCount)
+                pageSize = request.PageCount,
+                currentPage = request.Page,
+                totalPages = request.GetTotalPages(_personalCount)
             };
 
             Response.Headers.Add("X-Pagination", CustomJsonConverter.Serialize(paginationMetadata));
             return Ok(_personal);
         }
+
+        [HttpPost(Name = nameof(Save))]
+        public long Save(ApiVersion version, [FromBody] PersonDTO personDTO)
+        {
+            if (personDTO == null)
+                return -1;
+
+            if (!ModelState.IsValid)
+                return -1;
+
+            long _response = _dbagent.Save(personDTO);
+            return _response;
+        }
     }
 }
+

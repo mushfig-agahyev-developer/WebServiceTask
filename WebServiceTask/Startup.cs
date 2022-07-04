@@ -47,13 +47,6 @@ namespace WebServiceTask
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddScoped<IUrlHelper>(x =>
-            {
-                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
-                var factory = x.GetRequiredService<IUrlHelperFactory>();
-                return factory.GetUrlHelper(actionContext);
-            });
-
             services.AddApiVersioning(
               config =>
               {
