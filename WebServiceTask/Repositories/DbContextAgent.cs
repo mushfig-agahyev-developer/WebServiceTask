@@ -36,7 +36,7 @@ namespace WebServiceTask.Repositories
             List<PersonDTO> _personal = await _db.Personal.AsNoTracking().Include(y => y.Address)
                    .Where(r =>
                (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
-               (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
+               (string.IsNullOrEmpty(request.LastName) || r.LastName.Contains(request.LastName)) &&
                (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))))
                .OrderByDescending(r => r.Id).Skip(request.PageCount * (request.Page - 1))
                .Take(request.PageCount).Select(y => (PersonDTO)y).ToListAsync();
