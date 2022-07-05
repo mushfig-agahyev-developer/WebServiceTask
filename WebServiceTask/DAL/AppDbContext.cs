@@ -26,22 +26,6 @@ namespace WebServiceTask.DAL
             builder.Entity<Address>().HasIndex(u => u.City).IsUnique();
             builder.Entity<Address>().HasIndex(u => u.AddressLine).IsUnique();
 
-
-            /*
-             On EF6.2, you can use HasIndex() to add indexes for migration through fluent API.
-
-modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-
-            On EF6.1 onwards, you can use IndexAnnotation() to add indexes for migration in your fluent API.
-
-modelBuilder.Entity<User>() 
-    .Property(r => r.FirstName) 
-    .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute()));
-
-
-            builder.Entity<Address>().HasIndex(u => u.City).IsUnique();
-            builder.Entity<Address>().HasIndex(u => u.AddressLine).IsUnique();
-
             /*
             builder.ApplyConfiguration(new PersonConfig());
             builder.ApplyConfiguration(new AddressConfig());
