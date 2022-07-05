@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace WebServiceTask.DTO
 {
-    //I don't need modiy models but in real apps it is must: using dto models
     public class AddressDTO
     {
         [Required(ErrorMessage = "city name is required!"),
