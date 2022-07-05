@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace WebServiceTask
 {
@@ -41,6 +42,7 @@ namespace WebServiceTask
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<ISeedDbContextInitialValues, SeedDbContextInitialValues>();
             services.AddScoped<IDbContextAgent, DbContextAgent>();
 

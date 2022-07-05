@@ -1,4 +1,3 @@
-C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.csproj.AssemblyReference.cache
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.AssemblyInfoInputs.cache
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.AssemblyInfo.cs
@@ -59,3 +58,4 @@ C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebSer
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\ref\WebServiceTask.dll
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.pdb
 C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.genruntimeconfig.cache
+C:\Users\Code\source\repos\WebServiceTask\WebServiceTask\obj\Debug\net5.0\WebServiceTask.csproj.AssemblyReference.cache
