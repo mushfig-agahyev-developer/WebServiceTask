@@ -17,7 +17,6 @@ namespace WebServiceTask.Repositories
 
         public DbContextAgent(AppDbContext appDataBase) => _db = appDataBase;
 
-        //All Requests DbContext will supported from this repository.
         public List<PersonDTO> GetAllPersonal(GetAllRequest request)
         {
             List<PersonDTO> _personal = _db.Personal.AsNoTracking().Include(y => y.Address)
