@@ -14,6 +14,7 @@ namespace WebServiceTask.CustomAuditlog
         public LogEntry(EntityEntry entry, string username)
         {
             Entry = entry;
+            UserName = username;
         }
         public EntityEntry Entry { get; }
         public string UserName { get; set; }
