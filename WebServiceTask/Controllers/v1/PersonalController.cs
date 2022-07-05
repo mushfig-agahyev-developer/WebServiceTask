@@ -56,7 +56,11 @@ namespace WebServiceTask.Controllers.v1
 
             if (!ModelState.IsValid)
                 return -1;
-             
+
+            //Custom Deserialize
+            //var json = CustomJsonConverter.Serialize(personDTO);
+            //PersonDTO personDTO1 = CustomJsonConverter.Deserialize<PersonDTO>(json);
+
             /*
               if (!ModelState.IsValid)
               {
