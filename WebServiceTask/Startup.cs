@@ -90,6 +90,7 @@ namespace WebServiceTask
             {
                 endpoints.MapControllers();
             });
+
             app.UseSwagger();
             app.UseSwaggerUI(
                 options =>
