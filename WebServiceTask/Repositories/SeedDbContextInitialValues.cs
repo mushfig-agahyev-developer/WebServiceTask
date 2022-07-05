@@ -12,7 +12,6 @@ namespace WebServiceTask.Repositories
     {
         public async Task Initialize(AppDbContext context)
         {
-            //https://www.fakeaddresscopy.com/ukraine/ukraine_city/Haivoron/
             context.Personal.AddRange(new List<Person>() {
                 new Person(){
                  FirstName = "Danilo",
