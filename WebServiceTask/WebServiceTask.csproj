@@ -17,8 +17,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.0" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Controllers\v2\" />
-  </ItemGroup>
 </Project>
