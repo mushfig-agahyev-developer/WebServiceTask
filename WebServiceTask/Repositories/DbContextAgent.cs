@@ -48,7 +48,7 @@ namespace WebServiceTask.Repositories
         {
             int _personalCount = _db.Personal.AsNoTracking().Count(r =>
             (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
-            (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
+            (string.IsNullOrEmpty(request.LastName) || r.LastName.Contains(request.LastName)) &&
             (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))));
 
             return _personalCount;
@@ -58,7 +58,7 @@ namespace WebServiceTask.Repositories
         {
             int _personalCount = await _db.Personal.CountAsync(r =>
             (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
-            (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
+            (string.IsNullOrEmpty(request.LastName) || r.LastName.Contains(request.LastName)) &&
             (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))));
             return _personalCount;
         }
