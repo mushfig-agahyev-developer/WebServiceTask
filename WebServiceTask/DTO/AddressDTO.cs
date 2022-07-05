@@ -19,6 +19,9 @@ namespace WebServiceTask.DTO
 
         public static implicit operator AddressDTO(Address address)
         {
+            if (address == null)
+                return null;
+
             AddressDTO _model = new AddressDTO()
             {
                 AddressLine = address.AddressLine,

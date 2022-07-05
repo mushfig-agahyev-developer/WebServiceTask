@@ -19,6 +19,9 @@ namespace WebServiceTask.DTO
 
         public static implicit operator PersonDTO(Person person)
         {
+            if (person == null)
+                return null;
+
             PersonDTO personDTO = new PersonDTO()
             {
                 firstName = person.FirstName,

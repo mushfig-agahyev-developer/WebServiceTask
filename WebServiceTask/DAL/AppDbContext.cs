@@ -18,7 +18,7 @@ namespace WebServiceTask.DAL
             base.OnModelCreating(builder);
 
             builder.Entity<Person>().HasOne(v => v.Address)
-              .WithOne(p => p.Person).HasForeignKey<Person>(p => p.AddressId).IsRequired(false);
+              .WithOne(p => p.Person).HasForeignKey<Person>(p => p.AddressId);
         }
 
 

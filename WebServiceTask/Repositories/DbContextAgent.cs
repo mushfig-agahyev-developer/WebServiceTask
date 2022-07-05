@@ -21,10 +21,10 @@ namespace WebServiceTask.Repositories
         public List<PersonDTO> GetAllPersonal(GetAllRequest request)
         {
             List<PersonDTO> _personal = _db.Personal.AsNoTracking().Include(y => y.Address)
-                .Where(r => 
+                .Where(r =>
                (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
                (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
-               (string.IsNullOrEmpty(request.City) || r.Address.City.Contains(request.City)))
+               (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))))
                .OrderByDescending(r => r.Id).Skip(request.PageCount * (request.Page - 1))
                .Take(request.PageCount).Select(y => (PersonDTO)y).ToList();
 
@@ -37,7 +37,7 @@ namespace WebServiceTask.Repositories
                    .Where(r =>
                (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
                (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
-               (string.IsNullOrEmpty(request.City) || r.Address.City.Contains(request.City)))
+               (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))))
                .OrderByDescending(r => r.Id).Skip(request.PageCount * (request.Page - 1))
                .Take(request.PageCount).Select(y => (PersonDTO)y).ToListAsync();
 
@@ -48,9 +48,9 @@ namespace WebServiceTask.Repositories
         {
             int _personalCount = _db.Personal.AsNoTracking().Count(r =>
             (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
-               (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
-               (string.IsNullOrEmpty(request.City) || r.Address.City.Contains(request.City)));
-                 
+            (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
+            (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))));
+
             return _personalCount;
         }
 
@@ -58,8 +58,8 @@ namespace WebServiceTask.Repositories
         {
             int _personalCount = await _db.Personal.CountAsync(r =>
             (string.IsNullOrEmpty(request.FirstName) || r.FirstName.Contains(request.FirstName)) &&
-               (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
-               (string.IsNullOrEmpty(request.City) || r.Address.City.Contains(request.City)));
+            (string.IsNullOrEmpty(request.LastName) || r.FirstName.Contains(request.LastName)) &&
+            (string.IsNullOrEmpty(request.City) || ((r.Address != null) && r.Address.City.Contains(request.City))));
             return _personalCount;
         }
 
@@ -73,6 +73,11 @@ namespace WebServiceTask.Repositories
                 person.Address = new Address()
                 { City = personDTO.address.City, AddressLine = personDTO.address.AddressLine };
 
+                var _duplicate = _db.Personal.Include(y => y.Address)
+                .Where(r => (r.FirstName == person.FirstName && r.LastName == person.LastName) ||
+                (r.Address.City == person.Address.City && r.Address.AddressLine == person.Address.AddressLine))
+                .FirstOrDefault();
+
                 _db.Add(person);
 
                 if (_db.SaveChanges() > 0)
@@ -85,8 +90,8 @@ namespace WebServiceTask.Repositories
                 var log = ex.ToString();
                 return -1;
             }
-        }  
-        
+        }
+
         public async Task<long> SaveAsync(PersonDTO personDTO)
         {
             try

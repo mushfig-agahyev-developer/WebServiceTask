@@ -57,6 +57,13 @@ namespace WebServiceTask.Controllers.v1
             if (!ModelState.IsValid)
                 return -1;
 
+            //if (!ModelState.IsValid)
+            //{
+            //    ModelState.Values.SelectMany(r => r.Errors).ToList()
+            //        .ForEach(e => _message.Messages.Add(e.ErrorMessage));
+            //    return ...{ Model with error Messages}
+            //}
+
             long _response = await _dbagent.SaveAsync(personDTO);
             return _response;
         }
