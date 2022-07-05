@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace WebServiceTask.FilterModels
 {
+    /// <summary>
+    ///  Most in some situations dynamic pagination is forced.
+    /// If this is a web service written for mobile applications, I would say it is necessary.
+    /// </summary>
     public class GetAllRequest
     {
         private const int maxPageCount = 10;
